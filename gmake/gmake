@@ -1,0 +1,16 @@
+#!/bin/bash
+target=$1
+shift
+args=$@
+
+path=`pwd`
+while true;
+do
+    if [ -e $path/Makefile ];
+    then
+        make --directory=$path $target args="$args"
+        break
+    fi
+    path=`dirname $path`
+done
+

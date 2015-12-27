@@ -1,0 +1,19 @@
+gmake
+---
+
+序
+===
+簡單的 project base make 指令
+
+feature
+===
+command
+`gmake target args...`
+
+1. 自動指定直屬 Makefile 執行
+2. gmake 一次只指定單一target, 後面的參數都會用args 傳入 Makefile
+```Makefile
+...
+$(args)  # read from gmake args
+...
+```

@@ -1,0 +1,18 @@
+bfind
+---
+
+序
+===
+搜索直屬目錄檔案的小工具
+
+feature
+===
+1. 完全比對
+`bfind filename`
+filepath/filename
+2. regexp 部分比對
+`bfind -e file`
+filepath/filename
+3. 只取路徑
+`bfind -e -d file`
+filepath

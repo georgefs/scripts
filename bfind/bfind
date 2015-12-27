@@ -1,0 +1,54 @@
+#!/bin/bash
+DIR_ONLY=false
+REGEX_MATCH=false
+while getopts "hdev:" OPTION
+do
+     case $OPTION in
+         h)
+            echo "sample back find file command"
+            echo "options "
+            echo "-e regexp match"
+            echo "-r show dir only"
+            ;;
+         d)
+            DIR_ONLY=true
+             ;;
+         e)
+            REGEX_MATCH=true
+             ;;
+     esac
+done
+FILE_NAME=`echo $@|sed 's/-[^ \t]*[ \t]*//'`
+
+
+path=`pwd`
+while true ;
+do
+    if [ "$REGEX_MATCH" = true  ];
+    then
+        result=`ls $path|grep -ie "$FILE_NAME"|awk '{print length, \$0}'|sort -n|head -n1|awk '{print $2}'`   
+    else
+        if [ -e $path/$FILE_NAME ];
+        then
+            result=$FILE_NAME
+        fi
+    fi
+    
+    if [ "$result" !=  "" ];
+    then
+        if [ "$DIR_ONLY" = "true" ];
+        then
+            echo $path
+        else
+            echo $path/$result|sed "s/^\/\//\//"
+        fi
+        exit
+    fi
+
+    
+    if [ "$path" = "/" ]
+    then
+        break
+    fi
+    path=`dirname $path`
+done

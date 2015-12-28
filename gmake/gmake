@@ -12,5 +12,11 @@ do
         break
     fi
     path=`dirname $path`
+    
+    if [ $path = `dirname $path` ];
+    then
+        make $target $args
+        break
+    fi
 done
 
